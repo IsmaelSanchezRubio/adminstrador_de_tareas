@@ -1,0 +1,54 @@
+# Archivos y directorios de caché
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+.Python/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Entornos virtuales
+.env
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Base de datos local de SQLite
+db.sqlite3
+
+# Archivos estáticos recolectados
+/static/
+
+# Directorio de medios (archivos subidos por usuarios)
+/media/
+
+# Archivos específicos de Django
+*.log
+local_settings.py
+# Comentar la siguiente línea si quieres subir tu directorio de migraciones
+# migrations/
+
+# PyCharm/IDE specific files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code specific files (si usas VS Code para algo)
+.vscode/
+
+# Logs de depuración
+*.log
