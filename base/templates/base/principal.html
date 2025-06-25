@@ -3,137 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Pendientes</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
 
     <style>
+        /* Estilos generales del cuerpo, con el fondo "Liquid Glass", padding original y AHORA 100% de altura. */
         body {
-            background-color: #d1dbff;
-            font-family: "Abel", sans-serif;
-            padding-top: 60px;
+            background: linear-gradient(135deg, #eef4ff 0%, #c1d9ff 100%);
+            font-family: "Inter", sans-serif;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            margin: 0;
+            min-height: 100vh; /* ¡ESTO ES LO NUEVO! Asegura que el body ocupe al menos el 100% de la altura del viewport */
         }
 
-        .container{
-            max-width: 550px;
+        /* Contenedor principal con efecto "Liquid Glass". */
+        .container {
+            max-width: 600px;
             margin: auto;
-            background-color: #e1e1e1;
-            -webkit-box.shadows: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
-            box-shadow:2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+            background: rgba(255, 255, 255, 0.4);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.1);
+            border-radius: 25px;
+            overflow: hidden;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: "Lato", sans-serif;
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Inter", sans-serif;
+            font-weight: 700;
+            color: #1a253c;
+            margin-top: 0;
+            margin-bottom: 0;
         }
 
-        a,
-        p {
-            color: #b16a5e;
+        p, a {
+            color: #007aff;
+            font-size: 16px;
         }
 
-        .barra-superior{
+        /* Barra superior con fondo translúcido y elementos bien espaciados. */
+        .barra-superior {
             display: flex;
             justify-content: space-between;
-            color: #ffffff;
-            padding: 10px;
-            border-radius: 5px 5px 0 0;
-            background: linear-gradient(90deg, #46a4e6 0%, #197dc3 43%, #197dc3 100%);
+            align-items: center;
+            padding: 20px 25px;
+            background: rgba(255, 255, 255, 0.6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
-        .barra-superior a{
-        color: #ffffff;
-        text-decoration: none}
+        .barra-superior h1 {
+            margin: 0;
+            font-size: 24px;
+        }
 
-        .envoltorio-tarea{
+        .barra-superior a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #007aff;
+            font-size: 16px;
+            transition: color 0.2s ease;
+        }
+        .barra-superior a:hover {
+            color: #0056b3;
+        }
+
+        /* Envoltorio de tarea con fondo sutilmente más opaco al pasar el ratón. */
+        .envoltorio-tarea {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 20px;
-            background-color: #ffffff;
-            border-top: 1px solid rgb(225, 225, 225);}
+            padding: 18px 25px;
+            background-color: transparent;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            transition: background-color 0.2s ease;
+        }
 
-        .titulo-tarea{
-            display: flex;}
+        .envoltorio-tarea:last-child {
+            border-bottom: none;
+        }
 
-        .titulo-tarea a{
+        .envoltorio-tarea:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .titulo-tarea {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .titulo-tarea a {
             text-decoration: none;
-            color: #4b5156;
-            margin-left: 10px;}
+            color: #333;
+            margin-left: 15px;
+            font-weight: 500;
+            font-size: 18px;
+            word-break: break-word;
+            flex-grow: 1;
+        }
+
+        /* Iconos de tarea con colores y formas alineados con iOS. */
+        .icono-tarea-completa,
+        .icono-tarea-incompleta {
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
 
         .icono-tarea-completa {
-            height: 20px;
-            width: 20px;
-            background-color: rgb(105, 162, 105);
-            border-radius: 50px;}
+            background-color: #007aff;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+        }
 
         .icono-tarea-incompleta {
-            height: 20px;
-            width: 20px;
-            background-color: rgb(218, 218, 218);
-            border-radius: 50px;}
+            background-color: transparent;
+            border: 2px solid #cecece;
+        }
 
-        .enlace-eliminar{
+        .enlace-eliminar {
             text-decoration: none;
             font-weight: 900;
-            color: #EA4220;
-            font-size: 22px;
-            line-height: 0}
+            color: #ff3b30;
+            font-size: 24px;
+            line-height: 0;
+            padding: 5px;
+            margin-left: 15px;
+            transition: opacity 0.2s ease;
+        }
+        .enlace-eliminar:hover {
+            opacity: 0.7;
+        }
 
-        #envoltorio-agregar-buscar{
+        #envoltorio-agregar-buscar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 15px;
-            padding-left: 15px}
+            padding: 20px 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.5);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+        }
 
-        #enlace-agregar{
-            color: #EA4220;
+        #envoltorio-agregar-buscar form {
+            margin: 0;
+            display: flex;
+            flex-grow: 1;
+            align-items: center;
+        }
+
+        #envoltorio-agregar-buscar form input[type="text"] {
+            margin-right: 10px;
+            flex-grow: 1;
+            width: auto;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-family: "Inter", sans-serif;
+            font-size: 16px;
+            color: #333;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        #envoltorio-agregar-buscar form .boton {
+            margin-top: 0;
+        }
+
+        #enlace-agregar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background-color: #007aff;
+            color: white;
             text-decoration: none;
-            font-size: 42px;
-            padding-right:10px;
-            text-shadow: 1px 1px #81413B}
+            font-size: 32px;
+            font-weight: 500;
+            border-radius: 50%;
+            box-shadow: 0 6px 18px rgba(0, 122, 255, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            flex-shrink: 0;
+            margin-left: 15px;
+        }
 
-        input[type=text],
+        #enlace-agregar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.5);
+        }
+
+        /* Reglas generales para inputs de texto (excluyendo el de búsqueda para mayor especificidad) */
+        input[type=text]:not([name="area-buscar"]),
         input[type=password],
         textarea {
-            border: 1px solid #EB796F;
-            border-radius: 5px;
-            padding: 10px;
-            width: 90%}
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            padding: 14px 18px;
+            width: calc(100% - 36px);
+            font-family: "Inter", sans-serif;
+            font-size: 16px;
+            color: #333;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        input[type=text]:focus,
+        input[type=password]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #007aff;
+            box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.2);
+            background-color: #ffffff;
+        }
 
         label {
-            padding-top: 10px !important;
-            display: block}
+            padding-top: 15px !important;
+            padding-bottom: 8px;
+            display: block;
+            color: #333;
+            font-weight: 500;
+            font-size: 15px;
+        }
 
+        .cuerpo-tarjeta {
+            padding: 25px;
+        }
+
+        /* Estilos generales para botones. */
         .boton {
-            border: 1px solid #EB796F;
-            background-color: #FAFAFA;
-            color: #000000;
-            padding: 10px;
-            font-size: 14px;
-            border-radius: 5px;
+            border: none;
+            background-color: #007aff;
+            color: #ffffff;
+            padding: 14px 22px;
+            font-size: 17px;
+            font-weight: 600;
+            border-radius: 12px;
             cursor: pointer;
-            text-decoration: none}
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            margin-top: 20px;
+        }
 
-        .boton-salir{
-        border-radius: 5px;
-        border: 1px solid #EB796F}
+        .boton:hover {
+            background-color: #0056b3;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+        }
 
-        .cuerpo-tarjeta{
-        padding: 20px;}
+        .boton:active {
+            transform: scale(0.98);
+        }
 
+        .boton-salir {
+            border-radius: 12px;
+            border: 1px solid #007aff;
+            color: #007aff;
+            background-color: transparent;
+            padding: 10px 18px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
 
+        .boton-salir:hover {
+            background-color: rgba(0, 122, 255, 0.1);
+        }
 
-
+        .cuerpo-tarjeta p {
+            margin-top: 0;
+            padding-top: 20px;
+            text-align: center;
+        }
 
     </style>
 </head>
@@ -145,4 +303,3 @@
     </div>
 </body>
 </html>
-
